@@ -1,19 +1,19 @@
 {
-  "name": "myproject",
-  "version": "0.0.0",
+  "name": "drtrials",
+  "version": "0.0.1",
   "authors": [
     "Sam Beveridge <sam.bev87@gmail.com>"
   ],
-  "description": "life that describes parts of my life",
+  "description": "WebApp for Disaster Relief Trials Leaderboard",
   "license": "MIT",
   "homepage": "www.sambev.com",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "static/vendor/.*"
   ],
   "dependencies": {
     "foundation": "~5.1.1",
