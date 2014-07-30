@@ -1,9 +1,110 @@
 [[ extends 'base.html' ]]
 
 [[ block body ]]
+    <div class="row header">
+        <div class="small-3 columns">
+            <h2>Rider Profile</h2>
+        </div>
+        <div class="small-4 columns">
+            <button>New Rider</button>
+        </div>
+        <div class="small-4 columns">
+            <div class="row collapse">
+                <div class="small-9 columns">
+                    <input type="text" />
+                </div>
+                <div class="small-3 columns">
+                    <button class="postfix">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="small-12 columns">
-            <h1>It Works</h1>
+            <div class="row">
+                <div class="small-3 columns">
+                    <div class="row collapse">
+                        <div class="small-3 columns">
+                            <label for="name" class="prefix">Name:</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" name="name">
+                        </div>
+                    </div>
+                </div>
+                <div class="small-2 columns">
+                    <div class="row collapse">
+                        <div class="small-4 columns">
+                            <label for="name" class="prefix">Number:</label>
+                        </div>
+                        <div class="small-8 columns end">
+                            <input type="text" name="name">
+                        </div>
+                    </div>
+                </div>
+                <div class="small-2 columns end">
+                    <div class="row collapse">
+                        <div class="small-4 columns">
+                            <label for="name" class="prefix">Bike:</label>
+                        </div>
+                        <div class="small-8 columns">
+                            <select name="bike_type">
+                                <option value="normal">Normal</option>
+                                <option value="cargo">Cargo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-3 columns">
+            <div class="row collapse">
+                <div class="small-3 columns">
+                    <label for="name" class="prefix">Water:</label>
+                </div>
+                <div class="small-9 columns">
+                    <input type="text" name="name">
+                </div>
+            </div>
+        </div>
+        <div class="small-3 columns">
+            <div class="row collapse">
+                <div class="small-3 columns">
+                    <label for="name" class="prefix">Rogue:</label>
+                </div>
+                <div class="small-9 columns">
+                    <input type="text" name="name">
+                </div>
+            </div>
+        </div>
+        <div class="small-3 columns">
+            <div class="row collapse">
+                <div class="small-3 columns">
+                    <label for="name" class="prefix">Pass:</label>
+                </div>
+                <div class="small-9 columns">
+                    <input type="text" name="name">
+                </div>
+            </div>
+        </div>
+        <div class="small-3 columns">
+            <div class="row collapse">
+                <div class="small-3 columns">
+                    <label for="name" class="prefix">Sked:</label>
+                </div>
+                <div class="small-9 columns">
+                    <input type="text" name="name">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            <button>Save</button>
         </div>
     </div>
 [[ endblock ]]
