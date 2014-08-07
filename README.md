@@ -12,8 +12,13 @@ JS - see bower.json and package.json files.  Package.json files are dev only.
 * `bower install`
 
 
-Running the server:
+Running the web server:
 -------------------
 `python server.py`
+
+Running the socket server:
+`python ws_server.py`
+
+*You will need to start the ws_server _first_ before starting the webserver.
 
 Navigate to `localhost:5000`

@@ -10,5 +10,11 @@ app.config.update(SETTINGS['dev'])
 
 app.register_blueprint(main)
 
+@app.route('/leaderboard', methods=['GET', 'POST'])
+def leaderboard():
+    if request.method == 'GET':
+        return render_template('leaderboards.html')
+
+
 if __name__ == "__main__":
     app.run()
