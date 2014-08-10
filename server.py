@@ -1,5 +1,6 @@
 from flask import Flask, request, Response, render_template
 from app.blueprints.main import main
+from app.blueprints.rider import rider_bp
 from config.jinjacfg import setUpJinjaEnv
 from config.settings import SETTINGS
 
@@ -9,6 +10,7 @@ setUpJinjaEnv(app)
 app.config.update(SETTINGS['dev'])
 
 app.register_blueprint(main)
+app.register_blueprint(rider_bp)
 
 @app.route('/leaderboard', methods=['GET', 'POST'])
 def leaderboard():

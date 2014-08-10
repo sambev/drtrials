@@ -1,5 +1,4 @@
-import sys
-
+import socket
 from flask import Blueprint, request, render_template, Response
 from websocket import create_connection
 
@@ -8,19 +7,15 @@ main = Blueprint('main', __name__,
 
 @main.record
 def setup(state):
-    main.ws = create_connection('ws://localhost:9000')
+    try:
+        main.ws = create_connection('ws://localhost:9000')
+    except socket.error as e:
+        print 'Connection Refused.  Is the socket server running?'
+    except Exception as e:
+        print e.message()
 
 @main.route('/', methods=['GET'])
 def index():
     """ Render the landing page """
     if request.method == 'GET':
         return render_template('index.html')
-
-@main.route('/rider', methods=['POST'])
-def rider():
-    if request.method == 'POST':
-        print request.form
-        main.ws.send('Hi there')
-        result = main.ws.recv()
-        print result
-        return Response('hi')
