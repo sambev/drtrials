@@ -11,6 +11,11 @@ JS - see bower.json and package.json files.  Package.json files are dev only.
 * `npm install` (dev only)
 * `bower install`
 
+Mongo - follow install instructions on mongo and start it
+`mongod`
+
+Everything should work as long as it is running.
+
 
 Running the web server:
 -------------------
