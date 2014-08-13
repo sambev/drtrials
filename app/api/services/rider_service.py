@@ -5,7 +5,11 @@ class RiderService(object):
     """I am the the public interface to the logic surrounding Rider
     """
     def __init__(self):
-        self.con = connect('sf_drtrials')
+        try:
+            self.con = connect('sf_drtrials')
+        except Exception as e:
+            print e.message
+            print 'Unable to connect to Mongo.  Is it running?'
 
     def create_rider(self, data):
         """Create a new rider
@@ -15,8 +19,7 @@ class RiderService(object):
         new_rider = Rider(
             data['name'],
             data['number'],
-            data['bike'],
-            data['time']
+            data['bike_type'],
         )
         return new_rider.save()
 
@@ -39,8 +42,7 @@ class RiderService(object):
         rider = self.find_riders(number)[0]
         rider.name = data['name']
         rider.number = data['number']
-        rider.bike = data['bike']
-        rider.time = data['time']
+        rider.bike = data['bike_type']
 
         updated = rider.save()
         return updated

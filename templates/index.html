@@ -1,111 +1,70 @@
 [[ extends 'base.html' ]]
 
 [[ block body ]]
-    <div class="row header">
-        <div class="small-3 columns">
-            <h2>Rider Profile</h2>
-        </div>
-        <div class="small-4 columns">
-            <button>New Rider</button>
-        </div>
-        <div class="small-4 columns">
-            <div class="row collapse">
-                <div class="small-9 columns">
-                    <input type="text" />
+<div ng-app="riderApp">
+    <div ng-controller="RiderController">
+        <div class="row header">
+
+            <div class="small-4 columns">
+                <h3>New Rider</h3>
+                <label>Name
+                    <input type="text" ng-model="new_rider.name">
+                </label>
+                <div class="row">
+
+                    <div class="small-6 columns">
+                        <label>Number
+                            <input type="text" ng-model="new_rider.number">
+                        </label>
+                    </div>
+
+                    <div class="small-6 columns">
+                        <label>Bike Type
+                            <select ng-model="new_rider.bike_type"
+                                ng-options="type for type in bike_types">
+                            </select>
+                        </label>
+                    </div>
+
                 </div>
-                <div class="small-3 columns">
-                    <button class="postfix">Search</button>
+                <button class="btn" ng-click="create_rider()">Create</button>
+            </div>
+
+            <div class="small-4 columns">
+                <h3>Riders</h3>
+                <div ng-repeat="rider in riders">
+                    <a href="#" ng-click="select_rider(rider.number)">{{ rider.name }}</a>
                 </div>
+            </div>
+
+            <div class="small-4 columns">
+                <h3>Selected</h3>
+                <label>Name
+                    <input type="text" ng-model="selected.name" value="{{ selected.name }}">
+                </label>
+                <div class="row">
+
+                    <div class="small-6 columns">
+                        <label>Number
+                            <input type="text" ng-model="selected.number" value="{{ selected.number }}">
+                        </label>
+                    </div>
+
+                    <div class="small-6 columns">
+                        <label>Bike Type
+                            <select ng-model="selected.bike_type"
+                                ng-options="type for type in bike_types">
+                            </select>
+                        </label>
+                    </div>
+
+                </div>
+                <button class="btn" ng-click="update_rider()">Update</button>
             </div>
         </div>
     </div>
-    <form method="POST" action="/rider">
-        <div class="row">
-            <div class="small-12 columns">
-                <div class="row">
-                    <div class="small-3 columns">
-                        <div class="row collapse">
-                            <div class="small-3 columns">
-                                <label for="name" class="prefix">Name:</label>
-                            </div>
-                            <div class="small-9 columns">
-                                <input type="text" name="name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="small-2 columns">
-                        <div class="row collapse">
-                            <div class="small-4 columns">
-                                <label for="name" class="prefix">Number:</label>
-                            </div>
-                            <div class="small-8 columns end">
-                                <input type="text" name="name">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="small-2 columns end">
-                        <div class="row collapse">
-                            <div class="small-4 columns">
-                                <label for="name" class="prefix">Bike:</label>
-                            </div>
-                            <div class="small-8 columns">
-                                <select name="bike_type">
-                                    <option value="normal">Normal</option>
-                                    <option value="cargo">Cargo</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="small-3 columns">
-                <div class="row collapse">
-                    <div class="small-3 columns">
-                        <label for="name" class="prefix">Water:</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <input type="text" name="name">
-                    </div>
-                </div>
-            </div>
-            <div class="small-3 columns">
-                <div class="row collapse">
-                    <div class="small-3 columns">
-                        <label for="name" class="prefix">Rogue:</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <input type="text" name="name">
-                    </div>
-                </div>
-            </div>
-            <div class="small-3 columns">
-                <div class="row collapse">
-                    <div class="small-3 columns">
-                        <label for="name" class="prefix">Pass:</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <input type="text" name="name">
-                    </div>
-                </div>
-            </div>
-            <div class="small-3 columns">
-                <div class="row collapse">
-                    <div class="small-3 columns">
-                        <label for="name" class="prefix">Sked:</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <input type="text" name="name">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="small-12 columns">
-                <input type="submit" value="Save">
-            </div>
-        </div>
-    </form>
+</div>
+<script src="static/vendor/angular/angular.min.js"></script>
+<script src="static/vendor/lodash/dist/lodash.min.js"></script>
+<script src="static/js/riderApp.js"></script>
 [[ endblock ]]

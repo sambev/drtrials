@@ -12,12 +12,10 @@ class Rider(Document):
     name = StringField(max_length=255, required=True)
     number = IntField(required=True)
     bike_type = StringField(max_length=50)
-    time = StringField(max_length=8)
 
     def to_dict(self):
         return {
             "name": self.name,
             "number": self.number,
-            "bike_type": self.bike_type,
-            "time": self.time
+            "bike_type": self.bike_type
         }
