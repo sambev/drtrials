@@ -17,9 +17,9 @@ class RiderService(object):
         :return Rider object instance
         """
         new_rider = Rider(
-            data['name'],
-            data['number'],
-            data['bike_type'],
+            data.get('name'),
+            data.get('number'),
+            data.get('bike_type'),
         )
         new_rider.save()
         return new_rider
