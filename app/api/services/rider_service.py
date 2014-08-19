@@ -21,25 +21,26 @@ class RiderService(object):
             data['number'],
             data['bike_type'],
         )
-        return new_rider.save()
+        new_rider.save()
+        return new_rider
 
-    def find_riders(self, number=None):
+    def find_riders(self, id=None):
         """Find a rider giving the rider number
-        :param number - int rider number.  If none, find all
+        :param id - int rider id
         :return mongoengine.queryset.QuerySet
         """
-        if number:
-            return Rider.objects(number=number)
+        if id:
+            return Rider.objects(id=id)
         else:
             return Rider.objects().all()
 
-    def update_rider(self, number, data):
-        """Update the rider with the given number, create one if a rider doesn't
+    def update_rider(self, id, data):
+        """Update the rider with the given id, create one if a rider doesn't
         exist.
-        :param number - int rider number.
+        :param id - int rider id.
         :return Rider object instance
         """
-        rider = self.find_riders(number)[0]
+        rider = self.find_riders(id)[0]
         rider.name = data['name']
         rider.number = data['number']
         rider.bike = data['bike_type']
@@ -47,16 +48,16 @@ class RiderService(object):
         updated = rider.save()
         return updated
 
-    def delete_rider(self, number):
-        """Delete the rider with the given number
-        :param number - int rider number
+    def delete_rider(self, id):
+        """Delete the rider with the given id
+        :param id - int rider id
         :return response - dict as such:
             {
                 'error': False
                 'msg': 'Success'
             }
         """
-        rider = self.find_riders(number)[0]
+        rider = self.find_riders(id)[0]
         try:
             rider.delete()
             return {

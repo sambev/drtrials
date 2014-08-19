@@ -10,7 +10,7 @@ class Rider(Document):
     @attr: string time ('HH:MM:SS')
     """
     name = StringField(max_length=255, required=True)
-    number = IntField(required=True)
+    number = IntField(required=True, unique=True)
     bike_type = StringField(max_length=50)
 
     def to_dict(self):

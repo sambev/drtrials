@@ -1,5 +1,6 @@
 from flask import Blueprint, request, Response, json
 from mongoengine import connect
+from mongoengine.queryset import NotUniqueError
 from app.api.services.rider_service import RiderService
 
 rider_bp = Blueprint('rider_bp', __name__, template_folder='templates')
@@ -39,37 +40,60 @@ def riderAPI(rid=None):
 
     if request.method == 'POST':
         try:
-            rider = rider_bp.service.create_rider(json.loads(request.data))
+            saved = rider_bp.service.create_rider(json.loads(request.data))
+            rider = rider_bp.service.find_riders(saved.id)
             return Response(
-                json.dumps(rider.to_dict()),
+                rider.to_json(),
                 status=201,
                 mimetype='application/json'
             )
+        except NotUniqueError as e:
+            print e
+            resp = {
+                'error': True,
+                'msg': 'Rider number is already taken'
+            }
+            return Response(json.dumps(resp), status=400)
         except Exception as e:
-            msg = 'Error creating rider %s' % e
-            print msg
-            return Response(msg, status=500)
+            print e
+            resp = {
+                'error': True,
+                'msg': 'Uncaught Error creating rider.'
+            }
+            return Response(json.dumps(resp), status=500)
 
     if request.method == 'PUT':
-        if rid:
-            rider = rider_bp.service.update_rider(rid, json.loads(request.data))
-            return Response(
-                json.dumps(rider.to_dict()),
-                status=200,
-                mimetype='application/json'
-            )
-        else:
-            try:
-                rider = rider_bp.service.create_rider(json.loads(request.data))
+        try:
+            if rid:
+                saved = rider_bp.service.update_rider(rid, json.loads(request.data))
+                rider = rider_bp.service.find_riders(saved.id)
                 return Response(
-                    json.dumps(rider.to_dict()),
+                    rider.to_json(),
+                    status=200,
+                    mimetype='application/json'
+                )
+            else:
+                saved = rider_bp.service.create_rider(json.loads(request.data))
+                rider = rider_bp.service.find_riders(saved.id)
+                return Response(
+                    rider.to_json(),
                     status=201,
                     mimetype='application/json'
                 )
-            except Exception as e:
-                msg = 'Error creating rider %s' % e
-                print msg
-                return Response(msg, status=500)
+        except NotUniqueError as e:
+            print e
+            resp = {
+                'error': True,
+                'msg': 'Rider number is already taken'
+            }
+            return Response(json.dumps(resp), status=400)
+        except Exception as e:
+            print e
+            resp = {
+                'error': True,
+                'msg': 'Uncaught Error creating rider.'
+            }
+            return Response(json.dumps(resp), status=500)
 
     if request.method == 'DELETE':
         if rid:
