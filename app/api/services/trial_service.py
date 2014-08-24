@@ -11,7 +11,7 @@ class TrialService(object):
             print e.message
             print 'Unable to connect to Mongo.  Is it running?'
 
-    def create_trial(self, data):
+    def create(self, data):
         """Persist a Trial to the database
         :param - data dict trial data
         :example:
@@ -34,7 +34,7 @@ class TrialService(object):
 
         return new_trial
 
-    def find_trial(self, id=None):
+    def find(self, id=None):
         """Find a trial either by it's id or find all
         :param id - id of the trial
         """
@@ -43,20 +43,20 @@ class TrialService(object):
         else:
             return Trial.objects().all()
 
-    def update_trial(self, id, data):
+    def update(self, id, data):
         """Update the trial with the given id, create one if a trial doesn't
         exist.
         :param id - int trial id.
         :return trial object instance
         """
-        trial = self.find_trial(id)[0]
+        trial = self.find(id)[0]
         trial.city = data.get('city')
         trial.time = data.get('time')
 
         updated = trial.save()
         return updated
 
-    def delete_trial(self, id):
+    def delete(self, id):
         """Delete the trial with the given id
         :param id - int trial id
         :return response - dict as such:
@@ -65,7 +65,7 @@ class TrialService(object):
                 'msg': 'Success'
             }
         """
-        trial = self.find_trial(id)[0]
+        trial = self.find(id)[0]
         try:
             trial.delete()
             return {

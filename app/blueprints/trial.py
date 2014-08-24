@@ -11,27 +11,27 @@ class TrialREST(Resource):
 
     def get(self, id=None):
         if id:
-            trial = self.service.find_trial(id)
+            trial = self.service.find(id)
             return trial.to_json()
         else:
-            trials = self.service.find_trial()
+            trials = self.service.find()
             return trials.to_json()
 
     def post(self):
         args = parser.parse_args()
-        saved = self.service.create_trial(args)
-        new_trial = self.service.find_trial(saved.id)
+        saved = self.service.create(args)
+        new_trial = self.service.find(saved.id)
         return new_trial.to_json()
 
     def put(self, id=None):
         args = parser.parse_args()
         if id:
-            trial = self.service.update_trial(id, args)
+            trial = self.service.update(id, args)
         else:
-            trial = self.service.create_trial(args)
-        ret = self.service.find_trial(trial.id)
+            trial = self.service.create(args)
+        ret = self.service.find(trial.id)
         return ret.to_json()
 
     def delete(self, id):
-        self.service.delete_trial(id)
+        self.service.delete(id)
         return 'Delete success'
