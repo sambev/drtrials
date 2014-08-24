@@ -1,5 +1,5 @@
-from app.api.entities.rider import Rider
 from mongoengine import connect
+from app.api.entities.rider import Rider
 
 class RiderService(object):
     """I am the the public interface to the logic surrounding Rider
@@ -22,6 +22,7 @@ class RiderService(object):
             data.get('bike_type'),
         )
         new_rider.save()
+
         return new_rider
 
     def find_riders(self, id=None):
