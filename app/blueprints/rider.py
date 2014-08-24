@@ -18,7 +18,7 @@ def riderAPI(rid=None):
     """
     if request.method == 'GET':
         if rid:
-            rider = rider_bp.service.find_riders(rid)
+            rider = rider_bp.service.find(rid)
             if rider:
                 return Response(
                     rider.to_json(),
@@ -28,7 +28,7 @@ def riderAPI(rid=None):
             else:
                 return Response(status=404)
         else:
-            all_riders = rider_bp.service.find_riders()
+            all_riders = rider_bp.service.find()
             if len(all_riders):
                 return Response(
                     all_riders.to_json(),
@@ -40,8 +40,8 @@ def riderAPI(rid=None):
 
     if request.method == 'POST':
         try:
-            saved = rider_bp.service.create_rider(json.loads(request.data))
-            rider = rider_bp.service.find_riders(saved.id)
+            saved = rider_bp.service.create(json.loads(request.data))
+            rider = rider_bp.service.find(saved.id)
             return Response(
                 rider.to_json(),
                 status=201,
@@ -65,16 +65,16 @@ def riderAPI(rid=None):
     if request.method == 'PUT':
         try:
             if rid:
-                saved = rider_bp.service.update_rider(rid, json.loads(request.data))
-                rider = rider_bp.service.find_riders(saved.id)
+                saved = rider_bp.service.update(rid, json.loads(request.data))
+                rider = rider_bp.service.find(saved.id)
                 return Response(
                     rider.to_json(),
                     status=200,
                     mimetype='application/json'
                 )
             else:
-                saved = rider_bp.service.create_rider(json.loads(request.data))
-                rider = rider_bp.service.find_riders(saved.id)
+                saved = rider_bp.service.create(json.loads(request.data))
+                rider = rider_bp.service.find(saved.id)
                 return Response(
                     rider.to_json(),
                     status=201,
@@ -97,7 +97,7 @@ def riderAPI(rid=None):
 
     if request.method == 'DELETE':
         if rid:
-            ret = rider_bp.service.delete_rider(rid)
+            ret = rider_bp.service.delete(rid)
             if ret['error']:
                 return Response(
                     ret['msg'],

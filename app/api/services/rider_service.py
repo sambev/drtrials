@@ -1,5 +1,7 @@
 from mongoengine import connect
 from app.api.entities.rider import Rider
+from app.api.services.trial_service import TrialService
+
 
 class RiderService(object):
     """I am the the public interface to the logic surrounding Rider
@@ -11,7 +13,7 @@ class RiderService(object):
             print e.message
             print 'Unable to connect to Mongo.  Is it running?'
 
-    def create_rider(self, data):
+    def create(self, data):
         """Create a new rider
         :param data - dict
         :return Rider object instance
@@ -25,7 +27,7 @@ class RiderService(object):
 
         return new_rider
 
-    def find_riders(self, id=None):
+    def find(self, id=None):
         """Find a rider giving the rider number
         :param id - int rider id
         :return mongoengine.queryset.QuerySet
@@ -35,13 +37,13 @@ class RiderService(object):
         else:
             return Rider.objects().all()
 
-    def update_rider(self, id, data):
+    def update(self, id, data):
         """Update the rider with the given id, create one if a rider doesn't
         exist.
         :param id - int rider id.
         :return Rider object instance
         """
-        rider = self.find_riders(id)[0]
+        rider = self.find(id)[0]
         rider.name = data['name']
         rider.number = data['number']
         rider.bike = data['bike_type']
@@ -49,7 +51,7 @@ class RiderService(object):
         updated = rider.save()
         return updated
 
-    def delete_rider(self, id):
+    def delete(self, id):
         """Delete the rider with the given id
         :param id - int rider id
         :return response - dict as such:
@@ -58,7 +60,7 @@ class RiderService(object):
                 'msg': 'Success'
             }
         """
-        rider = self.find_riders(id)[0]
+        rider = self.find(id)[0]
         try:
             rider.delete()
             return {
