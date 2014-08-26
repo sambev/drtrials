@@ -30,7 +30,7 @@ class RiderService(object):
     def find(self, id=None):
         """Find a rider giving the rider number
         :param id - int rider id
-        :return mongoengine.queryset.QuerySet
+        :return dict
         """
         if id:
             return Rider.objects(id=id)
