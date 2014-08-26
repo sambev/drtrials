@@ -6,6 +6,8 @@ parser = reqparse.RequestParser()
 parser.add_argument('name', type=str)
 parser.add_argument('number', type=int)
 parser.add_argument('bike_type', type=str)
+parser.add_argument('races', type=list)
+
 
 class RiderREST(Resource):
     def __init__(self):

@@ -1,6 +1,7 @@
 from mongoengine import connect
 from app.api.entities.rider import Rider
-from app.api.services.trial_service import TrialService
+from app.api.entities.race import Race
+from app.api.entities.trial import Trial
 
 
 class RiderService(object):
@@ -18,10 +19,14 @@ class RiderService(object):
         :param data - dict
         :return Rider object instance
         """
+        trial = Trial.objects(city='San Fransisco')[0]
+        races = [Race(name=race) for race in trial.races]
+
         new_rider = Rider(
-            data.get('name'),
-            data.get('number'),
-            data.get('bike_type'),
+            name=data.get('name'),
+            number=data.get('number'),
+            bike_type=data.get('bike_type'),
+            races=races
         )
         new_rider.save()
 
@@ -44,9 +49,11 @@ class RiderService(object):
         :return Rider object instance
         """
         rider = self.find(id)[0]
-        rider.name = data['name']
-        rider.number = data['number']
-        rider.bike = data['bike_type']
+        rider.name = data.get('name')
+        rider.number = data.get('number')
+        rider.bike = data.get('bike_type')
+        races = data.get('races')
+        rider.races = [Race(name=race['name'], time=race['time']) for race in races]
 
         updated = rider.save()
         return updated

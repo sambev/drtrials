@@ -81,6 +81,14 @@
                     </div>
 
                     <div class="row">
+                        <div class="small-4 columns" ng-repeat="race in selected.races">
+                            <label>race.name
+                                <input type="text" ng-model="race.time" value="{{ race.time }}">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="small-4 columns">
                             <button class="btn">Update</button>
                         </div>

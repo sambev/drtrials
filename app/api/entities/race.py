@@ -8,4 +8,4 @@ class Race(EmbeddedDocument):
     @attr: datetime time - the bikers time (default:None)
     """
     name = StringField(max_length=255, required=True)
-    time = DateTimeField(default=datetime.datetime.now)
+    time = StringField(default='00:00:00')
