@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+sudo su # this might be a mistake
 # mongodb install as per http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list
 
 # System installs
 apt-get update
+apt-get -y install git-core
 apt-get -y install mongodb-org
 apt-get -y install python-dev
 apt-get -y install python-pip
@@ -24,7 +26,7 @@ pip install -r /vagrant/requirements.txt
 cd /vagrant/ && bower install
 
 # npm packages
-cd /vagrant/ && npm install
+cd /vagrant/ && npm install --no-bin-links # nobinlinks for windows bug.
 
 # Ruby packages
 cd /vagrant/ && bundle install
