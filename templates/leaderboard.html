@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="static/css/leaderboard.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+</head>
+<body ng-app="leaderApp">
+    <div ng-controller="LeaderboardController">
+        <div class="table-wrap">
+            <table class="leaderboard">
+                <th>Riders</th>
+                <th>Omsi</th>
+                <th>Squawk</th>
+                <th>Mech</th>
+                <th>Sked</th>
+                <th>Water</th>
+                <th>Rouge</th>
+                <th>Pass</th>
+                <th>Final</th>
+                <tr>
+                    <td>1 Sean Brown</td>
+                    <td>11:00</td>
+                    <td>11:47</td>
+                    <td>12:32</td>
+                    <td>13:37</td>
+                    <td>14:42</td>
+                    <td>15:48</td>
+                    <td><img class="bike-glyph" src="static/images/bike.png" alt=""></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2 Dean Cheesman</td>
+                    <td>11:00</td>
+                    <td>11:57</td>
+                    <td>12:52</td>
+                    <td>13:47</td>
+                    <td><img class="bike-glyph" src="static/images/bike.png" alt=""></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3 Deanna Dillard</td>
+                    <td>11:00</td>
+                    <td>12:47</td>
+                    <td>13:32</td>
+                    <td><img class="bike-glyph" src="static/images/bike.png" alt=""></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/vendor/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/static/js/autobahn.min.js"></script>
+    <script type="text/javascript" src="/static/js/leaderApp.js"></script>
+</body>
+</html>

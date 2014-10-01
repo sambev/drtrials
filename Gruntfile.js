@@ -23,6 +23,7 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'static/css/base.css': 'static/scss/base.scss',
+                    'static/css/leaderboard.css': 'static/scss/leaderboard.scss',
                 }
             }
         },

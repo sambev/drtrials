@@ -1,0 +1,56 @@
+body {
+    font-family: 'Open Sans';
+}
+
+.table-wrap {
+    border: 2px solid #000;
+    border-radius: 10px;
+    margin: auto;
+    overflow: hidden;
+    width: 960px;
+}
+
+.leaderboard {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.leaderboard tr {
+    background-color: #dcc28a;
+}
+
+.leaderboard th {
+    background-color: #fff;
+    border-left: solid 1px #000;
+    text-align: center;
+}
+
+.leaderboard th:first-child {
+    border-left: 0;
+}
+
+.leaderboard td {
+    border-right: solid 1px #000;
+    border-top: solid 1px #000;
+    text-align: center;
+}
+
+.leaderboard tr:last-child {
+    border-bottom: 0;
+}
+
+.leaderboard tr:first-child {
+    border-bottom: 2px solid #000;
+}
+
+.leaderboard td:first-child {
+    padding: 0 0 0 10px;
+    text-align: left;
+}
+
+.bike-glyph {
+    position: relative;
+    top: 2px;
+    width: 24px;
+}
+
