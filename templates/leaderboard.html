@@ -15,7 +15,7 @@
                     <span>{{ race.name }}</span>
                 </th>
                 <tr ng-repeat="rider in rider_info">
-                    <td><strong>{{ rider.name }}</strong></td>
+                    <td>{{ $index + 1 }}&nbsp;&nbsp;<strong>{{ rider.name }}</strong></td>
                     <td ng-repeat="race in rider.races">{{ race.time }}</td>
                 </tr>
             </table>
