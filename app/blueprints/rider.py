@@ -2,6 +2,7 @@ from flask.ext.restful import Resource, reqparse
 from app.api.services.rider_service import RiderService
 from util.parse import parse_mongo_resp
 from websocket import create_connection
+from flask import request, render_template
 
 parser = reqparse.RequestParser()
 parser.add_argument('name', type=str)
@@ -9,6 +10,9 @@ parser.add_argument('number', type=int)
 parser.add_argument('bike_type', type=str)
 parser.add_argument('races', type=list)
 
+def wants_json(mimetypes):
+    best = mimetypes.best_match(['application/json', 'text/html'])
+    return best == 'application/json'
 
 class RiderREST(Resource):
     def __init__(self):
@@ -20,8 +24,11 @@ class RiderREST(Resource):
             rider = self.service.find(id)
             return parse_mongo_resp(rider)
         else:
-            riders = self.service.find()
-            return parse_mongo_resp(riders)
+            if wants_json(request.accept_mimetypes):
+                riders = self.service.find()
+                return parse_mongo_resp(riders)
+            else:
+                return render_template('rider.html')
 
     def post(self):
         args = parser.parse_args()

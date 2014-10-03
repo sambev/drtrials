@@ -14,8 +14,15 @@ def setup(state):
     except Exception as e:
         print e.message()
 
+
 @main.route('/', methods=['GET'])
 def index():
     """ Render the landing page """
     if request.method == 'GET':
-        return render_template('index.html')
+        return render_template('rider.html')
+
+
+@main.route('/leaderboard', methods=['GET', 'POST'])
+def leaderboard():
+    if request.method == 'GET':
+        return render_template('leaderboard.html')

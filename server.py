@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, make_response
 from app.blueprints.main import main
 from app.blueprints.trial import TrialREST
 from app.blueprints.rider import RiderREST
@@ -16,10 +16,11 @@ app.register_blueprint(main)
 api.add_resource(TrialREST, '/trial/<string:id>', '/trial/')
 api.add_resource(RiderREST, '/rider/<string:id>', '/rider/')
 
-@app.route('/leaderboard', methods=['GET', 'POST'])
-def leaderboard():
-    if request.method == 'GET':
-        return render_template('leaderboard.html')
+@api.representation('text/html')
+def output_html(data, code, headers=None):
+    resp = make_response(data, code)
+    resp.headers.extend(headers or {})
+    return resp
 
 
 if __name__ == "__main__":
