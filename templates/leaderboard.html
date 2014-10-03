@@ -10,47 +10,13 @@
     <div ng-controller="LeaderboardController">
         <div class="table-wrap">
             <table class="leaderboard">
-                <th>Riders</th>
-                <th>Omsi</th>
-                <th>Squawk</th>
-                <th>Mech</th>
-                <th>Sked</th>
-                <th>Water</th>
-                <th>Rouge</th>
-                <th>Pass</th>
-                <th>Final</th>
-                <tr>
-                    <td>1 Sean Brown</td>
-                    <td>11:00</td>
-                    <td>11:47</td>
-                    <td>12:32</td>
-                    <td>13:37</td>
-                    <td>14:42</td>
-                    <td>15:48</td>
-                    <td><img class="bike-glyph" src="static/images/bike.png" alt=""></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>2 Dean Cheesman</td>
-                    <td>11:00</td>
-                    <td>11:57</td>
-                    <td>12:52</td>
-                    <td>13:47</td>
-                    <td><img class="bike-glyph" src="static/images/bike.png" alt=""></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>3 Deanna Dillard</td>
-                    <td>11:00</td>
-                    <td>12:47</td>
-                    <td>13:32</td>
-                    <td><img class="bike-glyph" src="static/images/bike.png" alt=""></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <th><span>Riders</span></th>
+                <th ng-repeat="race in rider_info[0].races">
+                    <span>{{ race.name }}</span>
+                </th>
+                <tr ng-repeat="rider in rider_info">
+                    <td><strong>{{ rider.name }}</strong></td>
+                    <td ng-repeat="race in rider.races">{{ race.time }}</td>
                 </tr>
             </table>
         </div>
