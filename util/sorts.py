@@ -1,24 +1,15 @@
-import operator
+# all of the code below is brought to you by iffy
+# https://github.com/iffy
+def sortableTime(x):
+    if not x:
+        return (0,0)
+    return [(-int(a[0]), -int(a[1])) for a in x.split(':')]
 
 
 def sort_riders(riders):
-    lengths = {}
-    completed = 0
-
-    for rider in riders:
-        for time in rider['times']:
-            if time['time'] != '':
-                completed += 1
-
-        lengths[rider['name']] = completed
-        completed = 0
-
-    sorted_lengths = sorted(lengths.items(), key=operator.itemgetter(1), reverse=True)
-    sorted_riders = []
-
-    for length in sorted_lengths:
-        for rider in riders:
-            if length[0] == rider['name']:
-                sorted_riders.append(rider)
-
-    return sorted_riders
+    def sortkey(rider):
+        num_nonzero_times = len(filter(None, [x['time'] for x in rider['times']]))
+        times = [sortableTime(x['time']) for x in rider['times']][::-1]
+        key = tuple([num_nonzero_times] + times)
+        return key
+    return sorted(riders, key=sortkey, reverse=True)
