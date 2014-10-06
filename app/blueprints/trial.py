@@ -2,9 +2,11 @@ from flask.ext.restful import Resource, reqparse
 from flask import request, render_template, redirect, Response
 from util.request_helpers import wants_json
 from util.parse import parse_mongo_resp
+from util.sorts import sort_riders
 from app.api.services.trial_service import TrialService
 from app.api.services.rider_service import RiderService
 from websocket import create_connection
+import json
 
 parser = reqparse.RequestParser()
 parser.add_argument('city', type=str)
@@ -19,12 +21,13 @@ class TrialREST(Resource):
 
     def get(self, id=None):
         if id:
-            trial = self.service.find(id)
+            trial = json.loads(self.service.find(id).to_json())[0]
+            trial['riders'] = sort_riders(trial['riders'])
             if wants_json(request.accept_mimetypes):
-                return parse_mongo_resp(trial)
+                return trial
             else:
                 if trial:
-                    return render_template('edit_trial.html', trial=trial[0])
+                    return render_template('edit_trial.html', trial=trial)
                 else:
                     return Response(status=404)
         else:
@@ -60,5 +63,6 @@ class TrialREST(Resource):
         return 'Delete success'
 
     def update_socket(self, id):
-        trial = self.service.find(id)
-        self.socket.send(trial.to_json())
+        trial = json.loads(self.service.find(id).to_json())[0]
+        trial['riders'] = sort_riders(trial['riders'])
+        self.socket.send(json.dumps(trial))

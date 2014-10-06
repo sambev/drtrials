@@ -24,7 +24,8 @@ leaderApp.controller('LeaderboardController', [
         };
 
         socket.onmessage = function (event) {
-            $scope.trial = JSON.parse(event.data)[0];
+            console.log(JSON.parse(event.data));
+            $scope.trial = JSON.parse(event.data);
             $scope.$apply()
         };
 
@@ -32,7 +33,7 @@ leaderApp.controller('LeaderboardController', [
         var url = '/trials/' + trial_id;
 
         $http.get(url).then(function (resp) {
-            $scope.trial = resp.data[0];
+            $scope.trial = resp.data;
         });
     }
 ]);
