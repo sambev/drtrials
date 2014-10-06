@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Leaderboard</title>
-    <link rel="stylesheet" href="static/css/leaderboard.css">
+    <link rel="stylesheet" href="/static/css/leaderboard.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="leaderApp">
@@ -11,12 +11,17 @@
         <div class="table-wrap">
             <table class="leaderboard">
                 <th><span>Riders</span></th>
-                <th ng-repeat="race in rider_info[0].races">
-                    <span>{{ race.name }}</span>
+                <th ng-repeat="race in trial.races">
+                    <span>{{ race }}</span>
                 </th>
-                <tr ng-repeat="rider in rider_info">
+                <tr ng-repeat="rider in trial.riders">
                     <td>{{ $index + 1 }}&nbsp;&nbsp;<strong>{{ rider.name }}</strong></td>
-                    <td ng-repeat="race in rider.races">{{ race.time }}</td>
+                    <td ng-repeat="race in rider.times">
+                        <div ng-switch on="race.time">
+                            <span ng-switch-when="">&nbsp;</span>
+                            <span ng-switch-default>{{ race.time }}</span>
+                        </div>
+                    <td>
                 </tr>
             </table>
         </div>

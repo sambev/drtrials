@@ -4,6 +4,7 @@ from util.request_helpers import wants_json
 from util.parse import parse_mongo_resp
 from app.api.services.trial_service import TrialService
 from app.api.services.rider_service import RiderService
+from websocket import create_connection
 
 parser = reqparse.RequestParser()
 parser.add_argument('city', type=str)
@@ -14,6 +15,7 @@ class TrialREST(Resource):
     def __init__(self):
         self.service = TrialService()
         self.rider_service = RiderService()
+        self.socket = create_connection('ws://localhost:9000')
 
     def get(self, id=None):
         if id:
@@ -36,6 +38,7 @@ class TrialREST(Resource):
         args = parser.parse_args()
         saved = self.service.create(args)
         new_trial = self.service.find(saved.id)
+        self.update_socket(saved.id)
         if wants_json(request.accept_mimetypes):
             return parse_mongo_resp(new_trial)
         else:
@@ -47,9 +50,15 @@ class TrialREST(Resource):
             trial = self.service.update(id, args)
         else:
             trial = self.service.create(args)
+        self.update_socket(trial.id)
         ret = self.service.find(trial.id)
         return parse_mongo_resp(ret)
 
     def delete(self, id):
         self.service.delete(id)
+        self.update_socket(id)
         return 'Delete success'
+
+    def update_socket(self, id):
+        trial = self.service.find(id)
+        self.socket.send(trial.to_json())

@@ -7,7 +7,8 @@ var leaderApp = angular.module('leaderApp', []);
 leaderApp.controller('LeaderboardController', [
     '$scope',
     '$http',
-    function ($scope, $http) {
+    '$window',
+    function ($scope, $http, $window) {
         var socket = new WebSocket('ws://localhost:9000');
 
         socket.onopen = function (event) {
@@ -23,12 +24,15 @@ leaderApp.controller('LeaderboardController', [
         };
 
         socket.onmessage = function (event) {
-            $scope.rider_info = JSON.parse(event.data);
+            $scope.trial = JSON.parse(event.data)[0];
             $scope.$apply()
         };
 
-        $http.get('/rider/').then(function (resp) {
-            $scope.rider_info = resp.data;
+        var trial_id = $window.location.pathname.split('/')[2];
+        var url = '/trials/' + trial_id;
+
+        $http.get(url).then(function (resp) {
+            $scope.trial = resp.data[0];
         });
     }
 ]);

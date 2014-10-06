@@ -15,17 +15,7 @@ class TrialService(object):
 
     def create(self, data):
         """Persist a Trial to the database
-        :param - data dict trial data
-        :example:
-            {
-                'city': 'Seattle',
-                'races': [
-                    'race1',
-                    'race2',
-                    'race3'
-                ]
-                'date': '2014-08-24 08:23:14'
-            }
+        :param - data {dict} trial data
         """
         new_trial = Trial(
             data.get('city'),
@@ -38,7 +28,7 @@ class TrialService(object):
 
     def find(self, id=None):
         """Find a trial either by it's id or find all
-        :param id - id of the trial
+        :param {string} id
         """
         if id:
             return Trial.objects(id=id)
@@ -50,7 +40,7 @@ class TrialService(object):
         exist.
         :param {string} id trial id.
         :param {data} dict representation of the trial
-        :return trial object instance
+        :return {app.api.entities.Trial}
         """
         trial = self.find(id)[0]
         trial.city = data.get('city')
@@ -68,11 +58,6 @@ class TrialService(object):
     def delete(self, id):
         """Delete the trial with the given id
         :param id - int trial id
-        :return response - dict as such:
-            {
-                'error': False
-                'msg': 'Success'
-            }
         """
         trial = self.find(id)[0]
         try:

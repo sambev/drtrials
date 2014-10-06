@@ -16,7 +16,8 @@ class RiderService(object):
 
     def create(self, data, races):
         """Create a new rider
-        :param data - dict
+        :param {data} - dict
+        :param {list<String>} - races
         :return Rider object instance
         """
         new_rider = Rider(
