@@ -1,0 +1,72 @@
+[[ extends 'base.html' ]]
+
+[[ block body ]]
+<div ng-app="trialApp">
+    <div ng-controller="TrialEditController">
+        <div class="row header">
+            <div class="large-12 columns">
+                <h2>[- trial.city -] Trial</h2>
+            </div>
+            <div class="large-3 columns">
+                <h3>Riders</h3>
+                <input type="text" placeholder="Search" ng-model="searchRiders">
+                <ul>
+                    <li ng-repeat="rider in trial.riders | filter:searchRiders">
+                        <a href="" ng-click="select_rider(rider)">
+                            {{ rider.number }} - {{ rider.name }}
+                        </a>
+                    </li>
+                <ul>
+            </div>
+            <div class="large-6 columns">
+                <h3>Add Rider</h3>
+                <div class="row collapse">
+                    <div class="large-8 columns">
+                        <input type="text" ng-model="new_rider.name" placeholder="Name">
+                    </div>
+                    <div class="large-2 columns">
+                        <input type="text" ng-model="new_rider.number" placeholder="#">
+                    </div>
+                    <div class="large-2 columns">
+                        <a ng-click="add_rider()" href="#" class="button postfix">Add</a>
+                    </div>
+                </div>
+
+                <h3>Edit Rider</h3>
+                <div ng-if="selected">
+                    <div class="row">
+                        <div class="large-8 columns">
+                            <input type="text" value="{{ selected.name }}">
+                        </div>
+                        <div class="large-2 columns end">
+                            <input type="text" value="{{ selected.number }}">
+                        </div>
+                    </div>
+                    <div ng-repeat="time in selected.times">
+                        <label>
+                            {{ time.name }}
+                            <input type="text" ng-model="time.time" value="{{ time.time }}">
+                        </label>
+                    </div>
+                    <button ng-click="update_trial()">Save</button>
+                </div>
+            </div>
+            <div class="large-3 columns">
+                <h3>Races</h3>
+                <input ng-repeat="race in trial.races" type="text" value="{{ race }}">
+                <div class="row collapse">
+                    <div class="large-8 columns">
+                        <input type="text" ng-model="new_race" placeholder="Name">
+                    </div>
+                    <div class="large-4 columns">
+                        <a ng-click="add_race()" href="#" class="button postfix">Add</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/vendor/angular/angular.min.js"></script>
+<script src="/static/vendor/lodash/dist/lodash.min.js"></script>
+<script src="/static/js/trialApp.js"></script>
+[[ endblock ]]

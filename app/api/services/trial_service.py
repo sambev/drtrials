@@ -1,10 +1,12 @@
 from mongoengine import connect
 from app.api.entities.trial import Trial
+from app.api.services.rider_service import RiderService
 
 class TrialService(object):
     """I am the the public interface to the logic surrounding Trial
     """
     def __init__(self):
+        self.rider_service = RiderService()
         try:
             self.con = connect('sf_drtrials')
         except Exception as e:
@@ -46,13 +48,20 @@ class TrialService(object):
     def update(self, id, data):
         """Update the trial with the given id, create one if a trial doesn't
         exist.
-        :param id - int trial id.
+        :param {string} id trial id.
+        :param {data} dict representation of the trial
         :return trial object instance
         """
         trial = self.find(id)[0]
         trial.city = data.get('city')
-        trial.time = data.get('time')
+        trial.races = data.get('races')
+        riders = []
+        # we don't actually update the riders, we just overwrite them
+        if data.get('riders'):
+            for rider in data['riders']:
+                riders.append(self.rider_service.create(rider, trial.races))
 
+        trial.riders = riders
         updated = trial.save()
         return updated
 

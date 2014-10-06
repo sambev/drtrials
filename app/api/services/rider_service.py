@@ -1,6 +1,6 @@
 from mongoengine import connect
 from app.api.entities.rider import Rider
-from app.api.entities.race import Race
+from app.api.entities.time import Time
 from app.api.entities.trial import Trial
 
 
@@ -14,68 +14,23 @@ class RiderService(object):
             print e.message
             print 'Unable to connect to Mongo.  Is it running?'
 
-    def create(self, data):
+    def create(self, data, races):
         """Create a new rider
         :param data - dict
         :return Rider object instance
         """
-        trial = Trial.objects(city='San Fransisco')[0]
-        races = [Race(name=race) for race in trial.races]
-
         new_rider = Rider(
             name=data.get('name'),
-            number=data.get('number'),
-            bike_type=data.get('bike_type'),
-            races=races
+            number=data.get('number')
         )
-        new_rider.save()
+
+        for race in races:
+            new_rider.times.append(Time(name=race))
+
+        times = []
+        if data.get('times'):
+            for time in data.get('times'):
+                times.append(Time(name=time.get('name'), time=time.get('time')))
+            new_rider.times = times
 
         return new_rider
-
-    def find(self, id=None):
-        """Find a rider giving the rider number
-        :param id - int rider id
-        :return dict
-        """
-        if id:
-            return Rider.objects(id=id)
-        else:
-            return Rider.objects().all()
-
-    def update(self, id, data):
-        """Update the rider with the given id, create one if a rider doesn't
-        exist.
-        :param id - int rider id.
-        :return Rider object instance
-        """
-        rider = self.find(id)[0]
-        rider.name = data.get('name')
-        rider.number = data.get('number')
-        rider.bike = data.get('bike_type')
-        races = data.get('races')
-        rider.races = [Race(name=race['name'], time=race['time']) for race in races]
-
-        updated = rider.save()
-        return updated
-
-    def delete(self, id):
-        """Delete the rider with the given id
-        :param id - int rider id
-        :return response - dict as such:
-            {
-                'error': False
-                'msg': 'Success'
-            }
-        """
-        rider = self.find(id)[0]
-        try:
-            rider.delete()
-            return {
-                'error': False,
-                'msg': 'Deleted'
-            }
-        except Exception as e:
-            return {
-                'error': True,
-                'msg': str(e)
-            }

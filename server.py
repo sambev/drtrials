@@ -13,8 +13,8 @@ setUpJinjaEnv(app)
 app.config.update(SETTINGS['dev'])
 
 app.register_blueprint(main)
-api.add_resource(TrialREST, '/trial/<string:id>', '/trial/')
-api.add_resource(RiderREST, '/rider/<string:id>', '/rider/')
+api.add_resource(TrialREST, '/trials/<string:id>', '/trials/')
+api.add_resource(RiderREST, '/riders/<string:id>', '/riders/')
 
 @api.representation('text/html')
 def output_html(data, code, headers=None):

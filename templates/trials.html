@@ -1,0 +1,25 @@
+[[ extends 'base.html' ]]
+
+[[ block body ]]
+    <div class="row">
+        <div class="large-7 large-centered columns">
+            <form action="/trials/" method="POST">
+                <div class="row">
+                    <div class="large-8 columns">
+                        <input type="text" name="city" placeholder="City">
+                    </div>
+                    <div class="large-3 columns">
+                        <input class="button button-primary" type="submit" value="Create">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-7 large-centered columns">
+            [[ for trial in trials ]]
+            <a href="[- trial.id -]">[- trial.city -]</a>
+            [[ endfor ]]
+        </div>
+    </div>
+[[ endblock ]]

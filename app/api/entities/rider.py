@@ -1,9 +1,9 @@
-from mongoengine import Document
+from mongoengine import EmbeddedDocument
 from mongoengine.fields import StringField, IntField, EmbeddedDocumentField, \
     ListField
-from app.api.entities.race import Race
+from app.api.entities.time import Time
 
-class Rider(Document):
+class Rider(EmbeddedDocument):
     """I am a rider for the Disaster Relief Trials
     @attr: string name
     @attr: int number
@@ -12,5 +12,4 @@ class Rider(Document):
     """
     name = StringField(max_length=255, required=True)
     number = IntField(required=True, unique=True)
-    bike_type = StringField(max_length=50)
-    races = ListField(EmbeddedDocumentField(Race))
+    times = ListField(EmbeddedDocumentField(Time))
