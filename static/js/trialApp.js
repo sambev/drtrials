@@ -14,7 +14,7 @@ trialApp.controller('TrialEditController', [
         var url = '/trials/' + trial_id;
 
         $http.get(url).then(function (resp) {
-            $scope.trial = resp.data[0];
+            $scope.trial = resp.data;
         });
 
         $scope.add_race = function () {
