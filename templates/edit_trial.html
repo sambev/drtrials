@@ -36,10 +36,10 @@
                 <div ng-if="selected">
                     <div class="row">
                         <div class="large-8 columns">
-                            <input type="text" value="{{ selected.name }}">
+                            <input type="text" ng-model="selected.name" value="{{ selected.name }}">
                         </div>
                         <div class="large-2 columns end">
-                            <input type="text" value="{{ selected.number }}">
+                            <input type="text" ng-model="selected.number" value="{{ selected.number }}">
                         </div>
                     </div>
                     <div ng-repeat="time in selected.times">
