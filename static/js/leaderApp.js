@@ -9,7 +9,7 @@ leaderApp.controller('LeaderboardController', [
     '$http',
     '$window',
     function ($scope, $http, $window) {
-        var socket = new WebSocket('ws://0.0.0.0:9000');
+        var socket = new WebSocket('ws://localhost:9000');
 
         socket.onopen = function (event) {
             console.log('connection success');

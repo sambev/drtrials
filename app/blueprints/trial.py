@@ -54,7 +54,7 @@ class TrialREST(Resource):
         else:
             trial = self.service.create(args)
         self.update_socket(trial.id)
-        ret = self.service.find(trial.id)
+        ret = self.service.find(trial.id)[0]
         return parse_mongo_resp(ret)
 
     def delete(self, id):

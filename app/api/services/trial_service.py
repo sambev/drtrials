@@ -52,6 +52,7 @@ class TrialService(object):
                 riders.append(self.rider_service.create(rider, trial.races))
 
         trial.riders = riders
+
         updated = trial.save()
         return updated
 

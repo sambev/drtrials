@@ -25,13 +25,18 @@ class RiderService(object):
             number=data.get('number')
         )
 
-        for race in races:
-            new_rider.times.append(Time(name=race))
-
-        times = []
+        # XXX This is pretty ugly and convoluted logic, clean it up and test it
         if data.get('times'):
+            times = []
             for time in data.get('times'):
                 times.append(Time(name=time.get('name'), time=time.get('time')))
+
+            for race in races:
+                if race not in [time.name for time in times]:
+                    times.append(Time(name=race))
+
             new_rider.times = times
+        else:
+            new_rider.times = [Time(name=race) for race in races]
 
         return new_rider

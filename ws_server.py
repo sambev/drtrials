@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     log.startLogging(sys.stdout)
 
-    factory = WebSocketServerFactory("ws://0.0.0.0:9000", debug = False)
+    factory = WebSocketServerFactory("ws://localhost:9000", debug = False)
     factory.clients = []
     factory.protocol = LeaderboardProtocol
 

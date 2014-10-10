@@ -20,7 +20,7 @@ trialApp.controller('TrialEditController', [
         $scope.add_race = function () {
             if ($scope.new_race) {
                 $scope.trial.races.push($scope.new_race);
-                $http.put(url, $scope.trial);
+                $scope.update_trial();
                 $scope.new_race = null;
             }
         }
@@ -28,9 +28,7 @@ trialApp.controller('TrialEditController', [
         $scope.add_rider = function () {
             if ($scope.new_rider) {
                 $scope.trial.riders.push($scope.new_rider)
-                $http.put(url, $scope.trial).then(function (resp) {
-                    $scope.trial = resp.data[0];
-                });
+                $scope.update_trial();
                 $scope.new_rider = null;
             }
         }
@@ -51,7 +49,12 @@ trialApp.controller('TrialEditController', [
         }
 
         $scope.update_trial = function () {
-            $http.put(url, $scope.trial);
+            $http.put(url, $scope.trial).then(function (resp) {
+                $scope.trial = resp.data;
+                $scope.selected = _.filter($scope.trial.riders, function (rider) {
+                    return rider.number == $scope.selected.number;
+                })[0];
+            });
         }
 
 
