@@ -1,13 +1,38 @@
 body {
     font-family: 'Open Sans';
+    background-image: url('/static/images/Golden_Gate_Blurred.jpg');
+}
+
+table {
+    border: 0;
+}
+
+.drt-logo {
+    position: relative;
+    top: 15px;
+}
+
+.runner-up {
+    position: relative;
+    top: 40px;
+}
+
+.runner-up img {
+    width: 75%;
+}
+
+.place-spot {
+    color: #fff;
+    text-align: center;
+}
+
+.place-rank {
+    font-size: 3em;
 }
 
 .table-wrap {
-    border: 2px solid #000;
-    border-radius: 10px;
-    margin: auto;
     overflow: hidden;
-    width: 960px;
+    width: 100%;
 }
 
 .leaderboard {
@@ -16,12 +41,13 @@ body {
 }
 
 .leaderboard tr {
-    background-color: #dcc28a;
+    background-color: #fff;
+    height: 50px;
 }
 
 .leaderboard th {
-    background-color: #fff;
-    border-left: solid 1px #000;
+    background-color: #6fb353;
+    color: #fff;
     text-align: center;
 }
 
@@ -30,8 +56,7 @@ body {
 }
 
 .leaderboard td {
-    border-right: solid 1px #000;
-    border-top: solid 1px #000;
+    border-right: 1px solid #6fb353;
     text-align: center;
 }
 
@@ -39,11 +64,9 @@ body {
     border-bottom: 0;
 }
 
-.leaderboard tr:first-child {
-    border-bottom: 2px solid #000;
-}
-
 .leaderboard td:first-child {
+    background-color: #2d2d2d;
+    color: #fff;
     padding: 0 0 0 10px;
     text-align: left;
 }
@@ -52,5 +75,9 @@ body {
     position: relative;
     top: 2px;
     width: 24px;
+}
+
+.completed {
+    background-color: #d4eac9;
 }
 

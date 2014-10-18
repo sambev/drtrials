@@ -3,27 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Leaderboard</title>
+    <link rel="stylesheet" href="/static/css/base.css">
     <link rel="stylesheet" href="/static/css/leaderboard.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="leaderApp">
     <div ng-controller="LeaderboardController">
-        <div class="table-wrap">
-            <table class="leaderboard">
-                <th><span>Riders</span></th>
-                <th ng-repeat="race in trial.races">
-                    <span>{{ race }}</span>
-                </th>
-                <tr ng-repeat="rider in trial.riders">
-                    <td>{{ $index + 1 }}&nbsp;&nbsp;<strong>{{ rider.name }}</strong></td>
-                    <td ng-repeat="race in rider.times">
-                        <div ng-switch on="race.time">
-                            <span ng-switch-when="">&nbsp;</span>
-                            <span ng-switch-default>{{ race.time }}</span>
-                        </div>
-                    <td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="large-2 columns center">
+                <img class="drt-logo" src="/static/images/sheild_white.png">
+            </div>
+            <div class="large-2 large-offset-1 columns">
+                <div class="place-spot runner-up">
+                    <img src="/static/images/second-place.png">
+                    <div>{{ trial.riders[1].name }}</div>
+                </div>
+            </div>
+            <div class="large-2 columns">
+                <div class="place-spot">
+                    <img src="/static/images/first-place.png">
+                    <div>{{ trial.riders[0].name }}</div>
+                </div>
+            </div>
+            <div class="large-2 columns">
+                <div class="place-spot runner-up">
+                    <img src="/static/images/third-place.png">
+                    <div>{{ trial.riders[2].name }}</div>
+                </div>
+            </div>
+            <div class="large-2 columns center">
+                <img class="drt-logo" src="/static/images/sheild_white.png">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="large-12 columns">
+                <div class="table-wrap">
+                    <table class="leaderboard">
+                        <th><span>Riders</span></th>
+                        <th ng-repeat="race in trial.races">
+                            <span>{{ race }}</span>
+                        </th>
+                        <tr ng-repeat="rider in trial.riders">
+                            <td>{{ $index + 1 }}&nbsp;&nbsp;<strong>{{ rider.name }}</strong></td>
+                            <td ng-repeat="race in rider.times" ng-class="{ completed: race.time }">
+                                <div ng-switch on="race.time">
+                                    <span ng-switch-when="">&nbsp;</span>
+                                    <span ng-switch-default>{{ race.time }}</span>
+                                </div>
+                            <td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="/static/vendor/angular/angular.min.js"></script>
