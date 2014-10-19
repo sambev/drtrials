@@ -51,9 +51,11 @@ trialApp.controller('TrialEditController', [
         $scope.update_trial = function () {
             $http.put(url, $scope.trial).then(function (resp) {
                 $scope.trial = resp.data;
-                $scope.selected = _.filter($scope.trial.riders, function (rider) {
-                    return rider.number == $scope.selected.number;
-                })[0];
+                if ($scope.selected) {
+                    $scope.selected = _.filter($scope.trial.riders, function (rider) {
+                        return rider.number == $scope.selected.number;
+                    })[0];
+                }
             });
         }
 

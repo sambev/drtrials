@@ -8,7 +8,9 @@ leaderApp.controller('LeaderboardController', [
     '$scope',
     '$http',
     '$window',
-    function ($scope, $http, $window) {
+    '$interval',
+    '$timeout',
+    function ($scope, $http, $window, $interval, $timeout) {
         var socket = new WebSocket('ws://localhost:9000');
 
         socket.onopen = function (event) {
@@ -24,7 +26,6 @@ leaderApp.controller('LeaderboardController', [
         };
 
         socket.onmessage = function (event) {
-            console.log(JSON.parse(event.data));
             $scope.trial = JSON.parse(event.data);
             $scope.$apply()
         };
@@ -35,5 +36,31 @@ leaderApp.controller('LeaderboardController', [
         $http.get(url).then(function (resp) {
             $scope.trial = resp.data;
         });
+
+        var scroll = true;
+        var ten_shown = document.getElementsByClassName('table-wrap')[0];
+
+        function scrollDown() {
+            var max_scroll = ten_shown.scrollHeight - 550;
+            if (ten_shown.scrollTop < max_scroll) {
+                ten_shown.scrollTop = ten_shown.scrollTop + 1;
+                $timeout(scrollDown, 10);
+            }
+        }
+
+        function scrollUp() {
+            if (ten_shown.scrollTop > 0) {
+                ten_shown.scrollTop = ten_shown.scrollTop - 1;
+                $timeout(scrollUp, 10);
+            }
+        }
+
+        $interval(function () {
+            scrollDown();
+            $timeout(function () {
+                scrollUp();
+            }, 11000);
+
+        }, 30000)
     }
 ]);

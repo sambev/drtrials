@@ -31,7 +31,8 @@ table {
 }
 
 .table-wrap {
-    overflow: hidden;
+    overflow: scroll;
+    height: 550px;
     width: 100%;
 }
 
@@ -80,4 +81,3 @@ table {
 .completed {
     background-color: #d4eac9;
 }
-
