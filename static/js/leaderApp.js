@@ -37,11 +37,10 @@ leaderApp.controller('LeaderboardController', [
             $scope.trial = resp.data;
         });
 
-        var scroll = true;
         var ten_shown = document.getElementsByClassName('table-wrap')[0];
 
         function scrollDown() {
-            var max_scroll = ten_shown.scrollHeight - 550;
+            var max_scroll = ten_shown.scrollHeight - ten_shown.offsetHeight;
             if (ten_shown.scrollTop < max_scroll) {
                 ten_shown.scrollTop = ten_shown.scrollTop + 1;
                 $timeout(scrollDown, 10);
@@ -60,7 +59,6 @@ leaderApp.controller('LeaderboardController', [
             $timeout(function () {
                 scrollUp();
             }, 11000);
-
         }, 30000)
     }
 ]);
